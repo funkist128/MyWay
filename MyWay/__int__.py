@@ -1,0 +1,1 @@
+from .MyWay import app

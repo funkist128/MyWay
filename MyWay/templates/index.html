@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block body %}
+{% if join == 'true' %}
+	<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">已加入</h1>
+{% else %}
+	<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">名單</h1>
+{% endif %}
+<a href="{{ url_for('add') }}"><button type="button" class="btn btn-primary" style="cursor:pointer;margin-top:8px; margin-bottom: 15px;">新增</button></a>
+{% if not customers %}
+	<h2>沒有資料</h2>
+{% else %}
+	<table class="table table-bordered table-striped">
+		<thead style="background-color: lightpink; color:black;">
+			<tr>
+				<th>姓名</th>
+				<th>電話</th>
+				<th>類型</th>
+				<th>動作</th>
+			</tr>
+		</thead>
+		<tbody style="cursor: pointer;">
+			{% for customer in customers %}
+				<tr>
+					<td>{{ customer.name }}</td>
+					<td>{{ customer.phone }}</td>
+					<td>{{ customer.type }}</td>
+					<td>
+						<ul style="list-style-type: none; padding-left: 0px;">
+							<li><a href="{{ url_for('info', cid=customer.id) }}"><img class="icon" src="{{ url_for('static', filename='file.png') }}">詳細</a></li>
+							<li><a href="{{ url_for('edit', cid=customer.id) }}"><img class="icon" src="{{ url_for('static', filename='pen.png') }}">修改</li>
+							<li><a class="delete" href="/delete/{{ customer.id }}/{{ join }}"><img class="icon" src="{{ url_for('static', filename='bin.png') }}">刪除</a></li>
+						</ul>
+					</td>
+				</tr>
+				{% endfor %}
+		</tbody>
+	</table>
+	<style type="text/css">
+		li {
+			float: left;
+			padding-left: 10px;
+		}
+
+
+	</style>
+
+{% endif %}
+{% endblock %}

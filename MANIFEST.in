@@ -1,0 +1,4 @@
+graft MyWay/templates
+graft MyWay/static
+include MyWay/schema.sql
+

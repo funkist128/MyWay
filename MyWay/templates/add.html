@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block body %}
+<script type="text/javascript">
+	function joinStatus() {
+		join = ['消費者', '發展者', '未購物', '未續約']
+		notJoin = ['同鄉', '同宗', '同好', '同事', '同學', '金錢往來', '有緣人', '陌生人']
+		theSelect = document.getElementById('join');
+		theOption = document.getElementById('option')
+		if (theSelect.value == '加入') {
+			while (theOption.options.length) {
+				theOption.remove(0);
+			}
+			for (var i = 0; i < join.length; i++) {
+				var option = new Option(join[i], join[i])
+				theOption.options.add(option);
+			}
+		} else {
+			while (theOption.options.length) {
+				theOption.remove(0);
+			}
+			for (var i = 0; i < notJoin.length; i++) {
+				var option = new Option(notJoin[i], notJoin[i])
+				theOption.options.add(option);
+			}
+		}
+	}
+
+
+</script>
+<form action="{{ url_for('add') }}" method="post">
+<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">基本資料</h1>
+<div class="form-group">
+	<label for="name">姓名</label>
+	<input type="text" class="form-control" name="name" style="width:300px;">
+</div>
+<div class="form-group">
+	<label for="phone">電話</label>
+	<input type="text" class="form-control" name="phone" style="width:300px;">
+</div>
+<div class="form-group">
+	<label for="status">狀態</label>
+	<select id="join" onchange="joinStatus()" class="form-control" name="status" style="width: 300px;">
+		<option>加入</option>
+		<option>未加入</option>
+	</select>
+</div>
+<div class="form-group">
+	<label for="type">類型</label>
+	<select id="option" class="form-control" name="type" style="width: 300px;">
+		<option>消費者</option>
+		<option>發展者</option>
+		<option>未購物</option>
+		<option>未續約</option>
+
+	</select>
+</div>
+<div class="form-group">
+	<label for="abo_number">編號</label>
+	<input type="text" class="form-control" name="abo_number" style="width:300px;">
+</div>
+<div class="form-group date">
+	<label for="b_day">生日</label>
+	<input type="text" placeholder="1999/9/9" class="form-control" name="b_day" style="width:300px;">
+</div>
+<div class="form-group date">
+	<label for="b_day">加入日期</label>
+	<input type="text" placeholder="1999/9/9" class="form-control" name="join_date" style="width:300px;">
+</div>
+<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">FORM</h1>
+<div class="form-group">
+	<label for="family">家庭</label>
+	<textarea class="form-control" name="family" style="width:300px;" rows="3"></textarea>
+</div>
+<div class="form-group">
+	<label for="occupation">工作</label>
+	<textarea class="form-control" name="occupation" style="width:300px;" rows="3"></textarea>
+</div>
+<div class="form-group">
+	<label for="rescreation">休閒</label>
+	<textarea class="form-control" name="rescreation" style="width:300px;" rows="3"></textarea>
+</div>
+<div class="form-group">
+	<label for="financial">財務</label>
+	<textarea class="form-control" name="financial" style="width:300px;" rows="3"></textarea>
+</div>
+<div class="form-group">
+	<label for="achievement">自我價值</label>
+	<textarea class="form-control" name="achievement" style="width:300px;" rows="3"></textarea>
+</div>
+<button type="submit" class="btn btn-primary">新增</button>
+<a href="/index/true"><button type="button" class="btn btn-light">取消</button></a>
+</form>
+
+{% endblock %}

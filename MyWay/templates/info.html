@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block body %}
+<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">基本資料</h1>
+{% if not customer[0] %}
+	<h2>Something wrong</h2>
+{% else %}
+	<table class="table table-bordered table-striped" style="margin-top: 30px;">
+		<tr>
+			<th>姓名</th>
+			<td>{{ customer[0].name }}</td>
+		</tr>
+		<tr>
+			<th>電話</th>
+			<td>{{ customer[0].phone }}</td>
+		</tr>
+		<tr>
+			<th>狀態</th>
+			<td>{{ customer[0].status }}</td>
+		</tr>
+		<tr>
+			<th>類型</th>
+			<td>{{ customer[0].type }}</td>
+		</tr>
+		<tr>
+			<th>編號</th>
+			<td>{{ customer[0].abo_number }}</td>
+		</tr>
+		<tr>
+			<th>加入日期</th>
+			<td>{{ customer[0].join_date }}</td>
+		</tr>
+		<tr>
+			<th>生日</th>
+			<td>{{ customer[0].b_day }}</td>
+		</tr>
+
+
+	</table>
+	<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">FORM</h1>
+	<table class="table table-bordered table-striped" style="margin-top: 30px;">
+		<tr>
+			<th>家庭</th>
+			<td>{{ customer[0].family }}</td>
+		</tr>
+		<tr>
+			<th>工作</th>
+			<td>{{ customer[0].occupation }}</td>
+		</tr>
+		<tr>
+			<th>休閒</th>
+			<td>{{ customer[0].rescreation }}</td>
+		</tr>
+		<tr>
+			<th>財務</th>
+			<td>{{ customer[0].financial }}</td>
+		</tr>
+		<tr>
+			<th>自我價值</th>
+			<td>{{ customer[0].achievement }}</td>
+		</tr>
+	</table>
+	<a href="{{ url_for('edit', cid=customer[0].id) }}"><button type="button" class="btn btn-primary">更新</button></a>
+	<h1 style="margin-top:20px; border-left: 8px solid pink; border-bottom: 2px solid pink">跟進狀況</h1>
+	{% if not progress %}
+		<h5>沒有近況</h5>
+	{% else %}
+		<table class="table table-bordered table-striped" style="margin-top: 30px;">
+			<thead style="background-color: lightpink; color:black;">
+				<tr>
+					<th>日期</th>
+					<th>跟進類型</th>
+					<th>備註</th>
+					<th>動作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for everyProgress in progress%}
+					<tr>
+						<th scope="row">{{ everyProgress.progress_date }}</th>
+						<td>{{ everyProgress.progress_type }}</td>
+						<td>{{ everyProgress.progress_info }}</td>
+						<td><a class="delete" href="{{ url_for('delete_progress', cid = customer[0].id, pid = everyProgress.id) }}"><img class="icon" src="{{ url_for('static', filename='bin.png') }}">刪除</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+
+
+	<h5 style="border-left: 8px solid pink; border-bottom: 2px solid pink; margin-top: 20px;">新增一筆</h5>
+	<form action="/newProgress/{{ customer[0].id }}" method="post">
+		<div class="form-group">
+			<label for="progress_date">日期</label>
+			<input type="text" placeholder="1999/9/9" class="form-control" name="progress_date" style="width:300px;">
+		</div>
+		<div class="form-group">
+			<label for="progess_type">跟進類型</label>
+			<select class="form-control" name="progress_type" style="width: 300px;">
+				<option>購物</option>
+				<option>續約</option>
+				<option>中心</option>
+				<option>家聚</option>
+				<option>軟性活動</option>
+				<option>OPP</option>
+				<option>BTC</option>
+				<option>LRC</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="progress_info">備註</label>
+			<textarea class="form-control" name="progress_info" rows="3"></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">新增</button>
+	</form>
+
+
+{% endif %}
+{% endblock %}
