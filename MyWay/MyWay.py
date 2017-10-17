@@ -205,7 +205,7 @@ def edit(cid):
 
 if __name__ == '__main__':
 
-	port = 5000 + random.randint(0, 999)
+	port = 5000
 	url = "http://127.0.0.1:{0}/index/true".format(port)
 
 	threading.Timer(1.25, lambda: webbrowser.open(url) ).start()
