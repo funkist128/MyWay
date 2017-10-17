@@ -87,12 +87,12 @@ def index(join):
 	else:
 		if join == 'true':
 			db = get_db()
-			cur = db.execute('select * from customers where status="加入" order by id asc')
+			cur = db.execute('select * from customers where status="加入" order by abo_number asc')
 			customers = cur.fetchall()
 			return render_template('index.html', customers = customers, join = 'true')
 		else:
 			db = get_db()
-			cur = db.execute('select * from customers where status="未加入" order by id asc')
+			cur = db.execute('select * from customers where status="未加入" order by b_day asc')
 			customers = cur.fetchall()
 			return render_template('index.html', customers = customers, join = 'false')
 	

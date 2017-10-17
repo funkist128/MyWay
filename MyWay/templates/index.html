@@ -12,6 +12,11 @@
 	<table class="table table-bordered table-striped">
 		<thead style="background-color: lightpink; color:black;">
 			<tr>
+				{% if join == 'true' %}
+					<th>編號</th>
+				{% else %}
+					<th>生日</th>
+				{% endif %}
 				<th>姓名</th>
 				<th>電話</th>
 				<th>類型</th>
@@ -21,6 +26,11 @@
 		<tbody style="cursor: pointer;">
 			{% for customer in customers %}
 				<tr>
+					{% if join == 'true' %}
+						<td>{{ customer.abo_number }}</td>
+					{% else %}
+						<td>{{ customer.b_day }}</td>
+					{% endif %}
 					<td>{{ customer.name }}</td>
 					<td>{{ customer.phone }}</td>
 					<td>{{ customer.type }}</td>
