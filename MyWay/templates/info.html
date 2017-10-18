@@ -40,23 +40,23 @@
 	<table class="table table-bordered table-striped table-hover" style="margin-top: 30px;">
 		<tr>
 			<th>家庭</th>
-			<td>{{ customer[0].family }}</td>
+			<td><pre>{{ customer[0].family }}</pre></td>
 		</tr>
 		<tr>
 			<th>工作</th>
-			<td>{{ customer[0].occupation }}</td>
+			<td><pre>{{ customer[0].occupation }}</pre></td>
 		</tr>
 		<tr>
 			<th>休閒</th>
-			<td>{{ customer[0].rescreation }}</td>
+			<td><pre>{{ customer[0].rescreation }}</pre></td>
 		</tr>
 		<tr>
 			<th>財務</th>
-			<td>{{ customer[0].financial }}</td>
+			<td><pre>{{ customer[0].financial }}</pre></td>
 		</tr>
 		<tr>
 			<th>自我價值</th>
-			<td>{{ customer[0].achievement }}</td>
+			<td><pre>{{ customer[0].achievement }}</pre></td>
 		</tr>
 	</table>
 	<a href="{{ url_for('edit', cid=customer[0].id) }}"><button type="button" class="btn btn-primary">更新</button></a>
