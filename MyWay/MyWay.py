@@ -8,6 +8,7 @@ import click
 from flask import Flask, request, session, g, redirect, url_for, abort, \
 	render_template, flash
 import random, threading, webbrowser
+import datetime
 
 
 app = Flask(__name__)
@@ -23,6 +24,11 @@ app.config.update(dict(
 
 app.config.from_envvar('MYWAY_SETTINGS', silent = True)
 
+# today
+today = datetime.datetime.today()
+nowYear = str(today.year)
+nowMonth = str(today.month)
+strr = nowYear + nowMonth
 
 
 # database stuff
@@ -202,6 +208,48 @@ def edit(cid):
 		customers = cur.fetchall()
 		return render_template('edit.html', customers = customers)
 
+@app.route('/goal', methods = ['GET', 'POST'])
+def goal():
+
+	if not session.get('logged_in'):
+		return render_template('login.html')
+
+	if request.method == 'POST':
+		db = get_db()
+		db.execute('insert into goal (id, amount) values (?, ?)', [strr, request.form['amount']])
+		db.commit()
+		return redirect(url_for('goal'))
+	else:
+
+		# check if the user has goal in this month 
+		db = get_db()
+		curForGoal = db.execute('select * from goal where id=?', [strr])
+		goal = curForGoal.fetchall()
+
+		if not goal:
+			return render_template('goal.html', hasGoal = False)
+
+		else:
+			# send the amount of this month to html
+			
+			cur = db.execute('select count(1) from customers where strftime("%m", join_date)=? and strftime("%Y", join_date)=?',\
+								[nowMonth, nowYear])
+			amount = cur.fetchall()
+			amount = amount[0][0]
+			goal = goal[0]['amount']
+
+			return render_template('goal.html', hasGoal = True, amount = amount, goal = goal)
+
+@app.route('/updateGoal', methods = ['POST'])
+def updateGoal():
+	if not session.get('logged_in'):
+		abort(401)
+	else:
+		db = get_db()
+		db.execute('update goal set amount=? where id=?', [request.form['newAmount'], strr])
+		db.commit()
+
+		return redirect(url_for('goal'))
 
 if __name__ == '__main__':
 

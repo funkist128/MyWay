@@ -22,5 +22,11 @@ create table customer_progress (
 	progress_date Date not null,
 	progress_type char not null,
 	progress_info text
-)
+);
+
+drop table if exists goal;
+create table goal (
+	id integer primary key,
+	amount integer not null
+);
 

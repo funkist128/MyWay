@@ -37,11 +37,11 @@
 	</div>
 	<div class="form-group date">
 		<label for="b_day">生日</label>
-		<input type="text" placeholder="1999/9/9" class="form-control" name="b_day" value="{{ customers[0].b_day }}"style="width:300px;">
+		<input type="text" placeholder="1999-9-9" class="form-control" name="b_day" value="{{ customers[0].b_day }}"style="width:300px;">
 	</div>
 	<div class="form-group date">
 		<label for="b_day">加入日期</label>
-		<input type="text" placeholder="1999/9/9" class="form-control" name="join_date" value="{{ customers[0].join_date }}" style="width:300px;">
+		<input id="join_d" type="text" placeholder="1999-9-9" class="form-control" name="join_date" value="{{ customers[0].join_date }}" style="width:300px;">
 	</div>
 	<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">FORM</h1>
 	<div class="form-group">
@@ -106,8 +106,9 @@
 	// Select options swtich function
 	function joinStatus() {
 
-		join = ['消費者', '發展者', '未購物', '未續約']
-		notJoin = ['同鄉', '同宗', '同好', '同事', '同學', '金錢往來', '有緣人', '陌生人']
+		var join = ['消費者', '發展者', '未購物', '未續約'];
+		var notJoin = ['同鄉', '同宗', '同好', '同事', '同學', '金錢往來', '有緣人', '陌生人'];
+		var join_d = document.getElementById('join_d');
 
 		if (theSelect.value == '加入') {
 			while (theOption.options.length) {
@@ -125,6 +126,7 @@
 				var option = new Option(notJoin[i], notJoin[i])
 				theOption.options.add(option);
 			}
+			join_d.value = "";
 		}
 	}
 </script>
