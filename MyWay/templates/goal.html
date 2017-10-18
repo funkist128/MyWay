@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block body %}
+
+{% if hasGoal %}
+	<div class="row justify-content-center">
+		<div class="col-6" style="padding:10px; background-color: lightpink; height: auto; border-radius: 5px; padding-bottom: 30px;">
+			<div class="container" style="padding:20px;">
+				<h2>目標完成進度</h2>
+
+				<label>你的目標：</label><span>{{ goal }}</span>
+		  		<label>已達成人數：</label><span><strong>{{ amount }}</strong></span>
+		  		<div class="progress">
+		    		<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{ (amount/goal)*100 }}%">
+		    		</div>
+		  		</div>
+		  		{% if amount >= goal %}
+		  			<h3 style="margin-top:10px;">恭喜你完成本月目標！</h3>
+		  		{% endif %}
+		  		<h5 style="margin-top: 20px;">更新當月目標:</h5>
+		  		<form id="newForm" action="{{ url_for('updateGoal') }}" method="post">
+		  			<div class="form-group">
+						<label>人數</label>
+						<input id="update" type="text" class="form-control" name="newAmount" style="width:auto;">
+					</div>
+					<button type="submit" class="btn btn-primary">更新</button>
+		  		</form>
+		  		<div class="alert-box" style="margin-top:20px; display: none;" class="alert alert-danger">
+				  	<strong>注意!</strong> 你必須輸入一個數字
+				</div>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="row justify-content-center">
+		<div class="col-6" style="padding:10px; background-color: lightpink; height: auto; border-radius: 5px;">
+			
+			<form id="form" action="{{ url_for('goal') }}" method="post" style="margin: 5px;">
+				<h5>您這個月還沒有任何目標，為這個月設個新目標吧！</h5>
+				<div class="form-group">
+					<label>人數</label>
+					<input id="create" type="text" class="form-control" name="amount" style="width:auto;">
+				</div>
+				<button type="submit" class="btn btn-primary">新增</button>
+
+			</form>
+			<div class="alert-box" style="margin-top:20px; display: none;" class="alert alert-danger">
+			  	<strong>注意!</strong> 你必須輸入一個數字
+			</div>
+
+		</div>
+	</div>
+	
+{% endif %}
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#form').submit(function(e) {
+
+			if ((isNaN($("#create").val())) || $("#create").val() === "" ) {
+				$('.alert-box').css("display", "block");
+				return false;
+			}
+		});
+
+		$('#newForm').submit(function(e) {
+
+			if ((isNaN($("#update").val())) || $("#update").val() === "" ) {
+				$('.alert-box').css("display", "block");
+				return false;
+			}
+		});	
+	});
+	
+
+
+</script>
+
+
+{% endblock %}
