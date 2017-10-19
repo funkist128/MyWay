@@ -37,26 +37,26 @@
 
 	</table>
 	<h1 style="border-left: 8px solid pink; border-bottom: 2px solid pink">FORM</h1>
-	<table class="table table-bordered table-striped table-hover" style="margin-top: 30px;">
+	<table class="table table-bordered table-striped table-hover" style="margin-top: 30px; white-space: pre;">
 		<tr>
 			<th>家庭</th>
-			<td><pre>{{ customer[0].family }}</pre></td>
+			<td>{{ customer[0].family }}</td>
 		</tr>
 		<tr>
 			<th>工作</th>
-			<td><pre>{{ customer[0].occupation }}</pre></td>
+			<td>{{ customer[0].occupation }}</td>
 		</tr>
 		<tr>
 			<th>休閒</th>
-			<td><pre>{{ customer[0].rescreation }}</pre></td>
+			<td>{{ customer[0].rescreation }}</td>
 		</tr>
 		<tr>
 			<th>財務</th>
-			<td><pre>{{ customer[0].financial }}</pre></td>
+			<td>{{ customer[0].financial }}</td>
 		</tr>
 		<tr>
 			<th>自我價值</th>
-			<td><pre>{{ customer[0].achievement }}</pre></td>
+			<td>{{ customer[0].achievement }}</td>
 		</tr>
 	</table>
 	<a href="{{ url_for('edit', cid=customer[0].id) }}"><button type="button" class="btn btn-primary">更新</button></a>
